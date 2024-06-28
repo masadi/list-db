@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ListTable extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 }
