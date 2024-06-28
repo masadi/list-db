@@ -88,6 +88,16 @@ const editData = (data) => {
 }
 const sukses = ref(false)
 const gagal = ref(false)
+const encrytPassword = (originalString) => {
+    if(originalString){
+        let startIndex = 2;
+        let endIndex = originalString.length;
+        let maskedString = originalString.substring(0, startIndex) +
+            "*".repeat(endIndex - startIndex) +
+            originalString.substring(endIndex);
+        return maskedString;
+    }
+}
 </script>
 
 <template>
@@ -106,7 +116,7 @@ const gagal = ref(false)
                             class="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
                     </div>
                     <div class="mb-4 max-w-xs">
-                        <fwb-button @click="showModal">Open modal: {{ sukses }}</fwb-button>
+                        <fwb-button @click="showModal">Add New</fwb-button>
                     </div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -158,7 +168,7 @@ const gagal = ref(false)
                                         {{ db.username }}
                                     </td>
                                     <td class="py-4 px-6 whitespace-nowrap">
-                                        {{ db.password }}
+                                        {{ encrytPassword(db.password) }}
                                     </td>
                                     <td class="py-4 px-6 whitespace-nowrap">
                                         <fwb-dropdown text="Action" align-to-end>
