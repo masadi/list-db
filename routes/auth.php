@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Schema;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -13,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 use App\Models\User;
 
 Route::middleware('guest')->group(function () {
-    if(!User::first()){
-        Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
-        Route::post('register', [RegisteredUserController::class, 'store']);
+    if (Schema::hasTable('users')) {
+        if(!User::first()){
+            Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+            Route::post('register', [RegisteredUserController::class, 'store']);
+        }
     }
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
